@@ -1,0 +1,13 @@
+diff --git a/lib/test_lockup.c b/lib/test_lockup.c
+index c3fd87d6c2dd..a83d17e10d25 100644
+--- a/lib/test_lockup.c
++++ b/lib/test_lockup.c
+@@ -611,7 +611,7 @@ static int __init test_lockup_init(void)
+ 	if (signal_pending(main_task))
+ 		return -EINTR;
+ 
+-	return -EAGAIN;
++	return 0;
+ }
+ module_init(test_lockup_init);
+ 

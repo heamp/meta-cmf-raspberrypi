@@ -1,0 +1,61 @@
+diff --git a/platform/raspberry-pi/platform_pi.c b/platform/raspberry-pi/platform_pi.c
+index 3c5c892..15400ed 100644
+--- a/platform/raspberry-pi/platform_pi.c
++++ b/platform/raspberry-pi/platform_pi.c
+@@ -637,36 +637,6 @@ INT wifi_steering_eventRegister(wifi_steering_eventCB_t event_cb)
+     return RETURN_OK;
+ }
+ 
+-int wifi_rrm_send_beacon_req(struct wifi_interface_info_t *interface, const u8 *addr,
+-    u16 num_of_repetitions, u8 measurement_request_mode, u8 oper_class, u8 channel,
+-    u16 random_interval, u16 measurement_duration, u8 mode, const u8 *bssid,
+-    struct wpa_ssid_value *ssid, u8 *rep_cond, u8 *rep_cond_threshold, u8 *rep_detail,
+-    const u8 *ap_ch_rep, unsigned int ap_ch_rep_len, const u8 *req_elem, unsigned int req_elem_len,
+-    u8 *ch_width, u8 *ch_center_freq0, u8 *ch_center_freq1, u8 last_indication)
+-{
+-    return 0;
+-}
+-
+-/* called by BTM API */
+-int wifi_wnm_send_bss_tm_req(struct wifi_interface_info_t *interface, struct sta_info *sta,
+-    u8 dialog_token, u8 req_mode, int disassoc_timer, u8 valid_int, const u8 *bss_term_dur,
+-    const char *url, const u8 *nei_rep, size_t nei_rep_len, const u8 *mbo_attrs, size_t mbo_len)
+-{
+-    return 0;
+-}
+-
+-int handle_wnm_action_frame(struct wifi_interface_info_t *interface, const mac_address_t sta,
+-    struct ieee80211_mgmt *mgmt, size_t len)
+-{
+-    return 0;
+-}
+-
+-int handle_rrm_action_frame(struct wifi_interface_info_t *interface, const mac_address_t sta,
+-    const struct ieee80211_mgmt *mgmt, size_t len, int ssi_signal)
+-{
+-    return 0;
+-}
+-
+ INT wifi_setApManagementFramePowerControl(INT apIndex, INT dBm)
+ {
+     return 0;
+@@ -800,4 +770,4 @@ UINT wifi_freq_to_op_class(UINT freq)
+     }
+ 
+     return op_class;
+-}
+\ No newline at end of file
++}
+diff --git a/src/wifi_hal_nl80211_events.c b/src/wifi_hal_nl80211_events.c
+index b510271..4013798 100644
+--- a/src/wifi_hal_nl80211_events.c
++++ b/src/wifi_hal_nl80211_events.c
+@@ -149,7 +149,7 @@ static void nl80211_new_station_event(wifi_interface_info_t *interface, struct n
+     event.assoc_info.req_ies = ies;
+     event.assoc_info.req_ies_len = ies_len;
+     event.assoc_info.addr = mac;
+-    wifi_hal_dbg_print("%s:%d: New station ies_len:%ld, ies:%p\n", __func__, __LINE__, ies_len, ies);
++    wifi_hal_dbg_print("%s:%d: New station ies_len:%ld, ies:%p\n", __func__, __LINE__, (long int)ies_len, ies);
+     notify_assoc_data(interface, tb, event);
+     if (interface->vap_info.vap_mode != wifi_vap_mode_ap || is_wifi_hal_vap_mesh_sta(interface->vap_info.vap_index)) {
+ #if defined(BANANA_PI_PORT) && (HOSTAPD_VERSION >= 211)

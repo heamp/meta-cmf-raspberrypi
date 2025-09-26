@@ -1,0 +1,14 @@
+SOURCE : https://github.com/rdkcentral/rdk-wifi-hal/commit/d85b2462d94e474613e83a94b37713db9712b027 (from develop branch in github)
+
+diff --git a/wifi_hal_priv.h b/wifi_hal_priv.h
+index 811146e..99366e5 100644
+--- a/wifi_hal_priv.h
++++ b/wifi_hal_priv.h
+@@ -395,6 +395,7 @@ typedef struct wifi_interface_info_t {
+     char bridge[32];
+     unsigned int index;
+     unsigned int phy_index;
++    unsigned int rdk_radio_index;
+     mac_address_t   mac;
+     unsigned int type;
+     unsigned int interface_status;

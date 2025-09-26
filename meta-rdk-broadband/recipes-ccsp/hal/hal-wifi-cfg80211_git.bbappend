@@ -1,0 +1,1 @@
+DEPENDS += " rdk-wifi-halif"
