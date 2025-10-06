@@ -46,16 +46,29 @@ index 3c5c892..15400ed 100644
 -}
 \ No newline at end of file
 +}
-diff --git a/src/wifi_hal_nl80211_events.c b/src/wifi_hal_nl80211_events.c
-index b510271..4013798 100644
---- a/src/wifi_hal_nl80211_events.c
-+++ b/src/wifi_hal_nl80211_events.c
-@@ -149,7 +149,7 @@ static void nl80211_new_station_event(wifi_interface_info_t *interface, struct n
-     event.assoc_info.req_ies = ies;
-     event.assoc_info.req_ies_len = ies_len;
-     event.assoc_info.addr = mac;
--    wifi_hal_dbg_print("%s:%d: New station ies_len:%ld, ies:%p\n", __func__, __LINE__, ies_len, ies);
-+    wifi_hal_dbg_print("%s:%d: New station ies_len:%ld, ies:%p\n", __func__, __LINE__, (long int)ies_len, ies);
-     notify_assoc_data(interface, tb, event);
-     if (interface->vap_info.vap_mode != wifi_vap_mode_ap || is_wifi_hal_vap_mesh_sta(interface->vap_info.vap_index)) {
- #if defined(BANANA_PI_PORT) && (HOSTAPD_VERSION >= 211)
+diff --git a/src/wifi_hal.c b/src/wifi_hal.c
+index 9359232..37891f8 100644
+--- a/src/wifi_hal.c
++++ b/src/wifi_hal.c
+@@ -273,16 +273,20 @@ INT wifi_hal_getHalCapability(wifi_hal_capability_t *hal)
+ 
+     // CM mac
+     memset(output, '\0', sizeof(output));
++    if(get_mac_address("erouter0", hal->wifi_prop.cm_mac) != RETURN_OK){
+     if (get_mac_address("eth0", hal->wifi_prop.cm_mac) != RETURN_OK) {
+         wifi_hal_error_print("%s:%d: Unable to get CM mac address\n", __func__, __LINE__);
+         memset(hal->wifi_prop.cm_mac, 0, sizeof(hal->wifi_prop.cm_mac));
+     }
++    }
+ 
+     memset(output, '\0', sizeof(output));
++    if(get_mac_address("erouter0", hal->wifi_prop.cm_mac) != RETURN_OK){
+     if (get_mac_address("eth0", hal->wifi_prop.al_1905_mac) != RETURN_OK) {
+         wifi_hal_error_print("%s:%d: Unable to get AL mac address\n", __func__, __LINE__);
+         memset(hal->wifi_prop.al_1905_mac, 0, sizeof(hal->wifi_prop.al_1905_mac));
+     }
++    }
+ #endif
+ 
+     /* Read the al_mac address from EM_CFG_FILE */
+

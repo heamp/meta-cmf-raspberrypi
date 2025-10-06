@@ -4,8 +4,12 @@ SRC_URI_remove = "git://github.com/rdkcentral/rdk-wifi-hal.git;protocol=https;br
 SRC_URI += "git://github.com/rdkcentral/rdk-wifi-hal.git;protocol=https;branch=develop;name=rdk-wifi-hal"
 SRCREV_rdk-wifi-hal = "ae219ea5ec614a28d4e06e222c1da4444aaf2b5f"
 
+SRC_URI += "file://rdk-wifi-hal_RPI.patch"
+
+#FEATURE_SINGLE_PHY :Config parameter for adding Single phy feature.
+
 CFLAGS_remove = " -Werror "
-CFLAGS_append = " -D_PLATFORM_RASPBERRYPI_  -DRASPBERRY_PI_PORT -Wno-return-type -Wno-unused-variable -DFEATURE_SINGLE_PHY -DCONFIG_HW_CAPABILITIES"
+CFLAGS_append = " -D_PLATFORM_RASPBERRYPI_  -DRASPBERRY_PI_PORT -Wno-return-type -Wno-unused-variable -DCONFIG_HW_CAPABILITIES"
 CFLAGS_append_kirkstone = " -fcommon"
 CFLAGS_remove = "-DCONFIG_MBO"
 EXTRA_OECONF_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'OneWifi', ' ONE_WIFIBUILD=true ', '', d)}"

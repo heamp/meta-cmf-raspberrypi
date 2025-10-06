@@ -236,6 +236,6 @@ DISTRO_FEATURES_append = " resource_optimization"
 
 DISTRO_FEATURES_append = " EasyMesh"
 DISTRO_FEATURES_append = " sta_manager"
-DISTRO_FEATURES_append = " CONFIG_IEEE80211BE"
+#DISTRO_FEATURES_append = " CONFIG_IEEE80211BE" // IEEE80211BE is a config file for adding WIFI7 support.
 #DISTRO_FEATURES_append = " generic_mlo"
 
